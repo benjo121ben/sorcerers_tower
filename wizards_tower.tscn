@@ -1,0 +1,205 @@
+[gd_scene format=3 uid="uid://1fxsjbbp813y"]
+
+[ext_resource type="Script" uid="uid://do3orjfnxij40" path="res://wizards_tower.gd" id="1_mbesr"]
+[ext_resource type="Script" uid="uid://bn7yuthgm6hl1" path="res://tower_resources.gd" id="2_dyqdt"]
+[ext_resource type="Script" uid="uid://16cfs8pcph5j" path="res://academic.gd" id="2_sw1rp"]
+[ext_resource type="Script" uid="uid://khn50p8hilkl" path="res://choose_arcana_menu.gd" id="3_sh6ue"]
+[ext_resource type="Script" uid="uid://73rtq6nh4rqy" path="res://tower_trigger.gd" id="3_sw1rp"]
+[ext_resource type="Script" uid="uid://ddyk8hilojs33" path="res://tower_view.gd" id="4_4xa76"]
+[ext_resource type="Script" uid="uid://c06ttxaa5siek" path="res://ArcanaButton.gd" id="4_sw1rp"]
+[ext_resource type="Script" uid="uid://dcwvkmscurx0w" path="res://student_label.gd" id="6_4xa76"]
+[ext_resource type="Script" uid="uid://35nrbeuw62t4" path="res://show_tomes.gd" id="7_iyqsc"]
+[ext_resource type="Script" uid="uid://cfaet08v87wrg" path="res://show_reagents.gd" id="8_j7bt1"]
+
+[sub_resource type="Resource" id="Resource_608jr"]
+script = ExtResource("2_sw1rp")
+acad_type = 1
+arcana = 0
+metadata/_custom_type_script = "uid://16cfs8pcph5j"
+
+[sub_resource type="Resource" id="Resource_j7bt1"]
+script = ExtResource("2_sw1rp")
+acad_type = 1
+arcana = 1
+metadata/_custom_type_script = "uid://16cfs8pcph5j"
+
+[sub_resource type="Resource" id="Resource_iyqsc"]
+script = ExtResource("2_sw1rp")
+acad_type = 2
+reagent = 0
+metadata/_custom_type_script = "uid://16cfs8pcph5j"
+
+[sub_resource type="Resource" id="Resource_t4nv8"]
+script = ExtResource("2_sw1rp")
+acad_type = 2
+reagent = 1
+metadata/_custom_type_script = "uid://16cfs8pcph5j"
+
+[sub_resource type="Resource" id="Resource_fw0a3"]
+script = ExtResource("2_dyqdt")
+metadata/_custom_type_script = "uid://bn7yuthgm6hl1"
+
+[node name="WizardsTower" type="Control" unique_id=808796527]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mbesr")
+academic_list = Array[ExtResource("2_sw1rp")]([SubResource("Resource_608jr"), SubResource("Resource_j7bt1"), SubResource("Resource_iyqsc"), SubResource("Resource_t4nv8")])
+tower_resources = SubResource("Resource_fw0a3")
+
+[node name="TabContainer" type="TabContainer" parent="." unique_id=1648535470]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+
+[node name="The Tower" type="HBoxContainer" parent="TabContainer" unique_id=460949865]
+layout_mode = 2
+size_flags_vertical = 17
+theme_override_constants/separation = 11
+alignment = 1
+metadata/_tab_index = 0
+
+[node name="Run" type="VBoxContainer" parent="TabContainer/The Tower" unique_id=1129023171]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="StarttowerButton2" type="Button" parent="TabContainer/The Tower/Run" unique_id=2064234728]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Run Quiet Phase"
+
+[node name="StarttowerButton" type="Button" parent="TabContainer/The Tower/Run" unique_id=599062562 node_paths=PackedStringArray("input_text")]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Run the Tower"
+script = ExtResource("3_sw1rp")
+input_text = NodePath("../KnowledgeInput")
+
+[node name="KnowledgeInput" type="LineEdit" parent="TabContainer/The Tower/Run" unique_id=1280543800]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="towerview + students" type="VBoxContainer" parent="TabContainer/The Tower" unique_id=1012963396]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="The Tower" type="VBoxContainer" parent="TabContainer/The Tower/towerview + students" unique_id=541071583]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+script = ExtResource("4_4xa76")
+
+[node name="CenterContainer" type="CenterContainer" parent="TabContainer/The Tower/towerview + students" unique_id=1994838767]
+layout_mode = 2
+
+[node name="StudentLabel" type="Label" parent="TabContainer/The Tower/towerview + students/CenterContainer" unique_id=311141190]
+layout_mode = 2
+script = ExtResource("6_4xa76")
+
+[node name="parent resources" type="VBoxContainer" parent="TabContainer/The Tower" unique_id=1381668328]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="parent resources" type="VBoxContainer" parent="TabContainer/The Tower/parent resources" unique_id=402795468]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("7_iyqsc")
+
+[node name="parent resources2" type="VBoxContainer" parent="TabContainer/The Tower/parent resources" unique_id=805771419]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("8_j7bt1")
+
+[node name="ChooseArcanaMenu" type="PopupMenu" parent="." unique_id=1108145615 node_paths=PackedStringArray("label")]
+oversampling_override = 1.0
+initial_position = 1
+size = Vector2i(272, 355)
+script = ExtResource("3_sh6ue")
+label = NodePath("VBoxContainer/Label")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ChooseArcanaMenu" unique_id=1899638698]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 19
+size_flags_vertical = 19
+
+[node name="Label" type="Label" parent="ChooseArcanaMenu/VBoxContainer" unique_id=730129823]
+layout_mode = 2
+
+[node name="ArcanaButton" type="Button" parent="ChooseArcanaMenu/VBoxContainer" unique_id=925419425 node_paths=PackedStringArray("arcana_menu")]
+layout_mode = 2
+text = "Artifice"
+script = ExtResource("4_sw1rp")
+arcana_menu = NodePath("../..")
+arcana = 0
+metadata/_custom_type_script = "uid://c06ttxaa5siek"
+
+[node name="ArcanaButton2" type="Button" parent="ChooseArcanaMenu/VBoxContainer" unique_id=1309772792 node_paths=PackedStringArray("arcana_menu")]
+layout_mode = 2
+text = "Invocation"
+script = ExtResource("4_sw1rp")
+arcana_menu = NodePath("../..")
+arcana = 1
+metadata/_custom_type_script = "uid://c06ttxaa5siek"
+
+[node name="ArcanaButton3" type="Button" parent="ChooseArcanaMenu/VBoxContainer" unique_id=366999902 node_paths=PackedStringArray("arcana_menu")]
+layout_mode = 2
+text = "Thaumaturgy"
+script = ExtResource("4_sw1rp")
+arcana_menu = NodePath("../..")
+arcana = 2
+metadata/_custom_type_script = "uid://c06ttxaa5siek"
+
+[node name="ArcanaButton4" type="Button" parent="ChooseArcanaMenu/VBoxContainer" unique_id=1823489813 node_paths=PackedStringArray("arcana_menu")]
+layout_mode = 2
+text = "Apotropaism"
+script = ExtResource("4_sw1rp")
+arcana_menu = NodePath("../..")
+arcana = 3
+metadata/_custom_type_script = "uid://c06ttxaa5siek"
+
+[node name="ArcanaButton5" type="Button" parent="ChooseArcanaMenu/VBoxContainer" unique_id=165669860 node_paths=PackedStringArray("arcana_menu")]
+layout_mode = 2
+text = "Divination"
+script = ExtResource("4_sw1rp")
+arcana_menu = NodePath("../..")
+arcana = 4
+metadata/_custom_type_script = "uid://c06ttxaa5siek"
+
+[node name="ArcanaButton6" type="Button" parent="ChooseArcanaMenu/VBoxContainer" unique_id=2132044772 node_paths=PackedStringArray("arcana_menu")]
+layout_mode = 2
+text = "Oneirism"
+script = ExtResource("4_sw1rp")
+arcana_menu = NodePath("../..")
+arcana = 5
+metadata/_custom_type_script = "uid://c06ttxaa5siek"
+
+[node name="ArcanaButton7" type="Button" parent="ChooseArcanaMenu/VBoxContainer" unique_id=1949056245 node_paths=PackedStringArray("arcana_menu")]
+layout_mode = 2
+text = "Metamorphosis"
+script = ExtResource("4_sw1rp")
+arcana_menu = NodePath("../..")
+arcana = 6
+metadata/_custom_type_script = "uid://c06ttxaa5siek"
+
+[node name="ArcanaButton8" type="Button" parent="ChooseArcanaMenu/VBoxContainer" unique_id=408832678 node_paths=PackedStringArray("arcana_menu")]
+layout_mode = 2
+text = "Enchantment"
+script = ExtResource("4_sw1rp")
+arcana_menu = NodePath("../..")
+arcana = 7
+metadata/_custom_type_script = "uid://c06ttxaa5siek"
