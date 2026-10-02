@@ -18,10 +18,38 @@ var enchantment_arcanist := 0
 
 signal choose_tome_to_spend(tower_resources:TowerResources)
 signal arcana_chosen(arcana: Academic.Arcana)
-signal create_arcanist()
+signal recipe_chosen(arcana: Academic.ReagentRecipe)
+signal choose_arcana
+signal choose_arcanist
+signal choose_recipe
 signal updated
+signal leftover_knowledge(knowledge: int)
 
 func _ready() -> void:
+	updated.emit()
+
+func create_professor():
+	var acad = Academic.new()
+	acad.acad_type = Academic.AcademicType.PROFESSOR
+	academic_list.push_back(acad)
+	updated.emit()
+
+func create_alchemist():
+	var acad = Academic.new()
+	acad.acad_type = Academic.AcademicType.ALCHEMIST
+	choose_recipe.emit()
+	var recipe = await recipe_chosen
+	acad.reagent = recipe
+	academic_list.push_back(acad)
+	updated.emit()
+
+func create_librarian():
+	var acad = Academic.new()
+	acad.acad_type = Academic.AcademicType.LIBRARIAN
+	choose_arcana.emit()
+	var arcana = await arcana_chosen
+	acad.arcana = arcana
+	academic_list.push_back(acad)
 	updated.emit()
 
 func run_visions_phase(knowledge: int) -> void:
@@ -35,13 +63,13 @@ func run_visions_phase(knowledge: int) -> void:
 			Academic.AcademicType.PROFESSOR:
 				knowledge = handle_professor(knowledge)
 			Academic.AcademicType.LIBRARIAN:
-				knowledge = handle_librarian(academic.arcana, knowledge, tower_resources)
+				knowledge = handle_librarian(academic.arcana, knowledge)
 			Academic.AcademicType.ALCHEMIST:
 				knowledge = await handle_alchemist(academic.reagent, knowledge)
 
 	# create new reliable arcanists
 	for i in range(knowledge / 5):
-		create_arcanist.emit()
+		choose_arcanist.emit()
 		var response = await arcana_chosen
 
 		match response:
@@ -63,12 +91,15 @@ func run_visions_phase(knowledge: int) -> void:
 				enchantment_arcanist += 1
 			_: assert(false, "an invalid tome was chosen to create an arcanist: " + str(response))
 
+	leftover_knowledge.emit(knowledge - knowledge / 5)
 	updated.emit()
 
 	
 
 func run_quiet_phase() -> void:
-	print()
+	print("NOTHING HAPPENS YET")
+	updated.emit()
+
 
 
 func handle_professor(knowledge: int) -> int:
@@ -79,7 +110,7 @@ func handle_professor(knowledge: int) -> int:
 	return knowledge - 2
 
 
-func handle_librarian(arcana: Academic.Arcana, knowledge: int, tower_resources: TowerResources) -> int:
+func handle_librarian(arcana: Academic.Arcana, knowledge: int) -> int:
 	if knowledge < 5:
 		return knowledge
 

@@ -7,9 +7,18 @@
 [ext_resource type="Script" uid="uid://73rtq6nh4rqy" path="res://tower_trigger.gd" id="3_sw1rp"]
 [ext_resource type="Script" uid="uid://ddyk8hilojs33" path="res://tower_view.gd" id="4_4xa76"]
 [ext_resource type="Script" uid="uid://c06ttxaa5siek" path="res://ArcanaButton.gd" id="4_sw1rp"]
+[ext_resource type="Script" uid="uid://ve2mulvlcyxf" path="res://leftover_knowledge_label.gd" id="5_y7e08"]
 [ext_resource type="Script" uid="uid://dcwvkmscurx0w" path="res://student_label.gd" id="6_4xa76"]
+[ext_resource type="Script" uid="uid://uo176rlxpbsi" path="res://quiet_pase.gd" id="6_a36s7"]
 [ext_resource type="Script" uid="uid://35nrbeuw62t4" path="res://show_tomes.gd" id="7_iyqsc"]
 [ext_resource type="Script" uid="uid://cfaet08v87wrg" path="res://show_reagents.gd" id="8_j7bt1"]
+[ext_resource type="PackedScene" uid="uid://yo7t6mkaesiq" path="res://denizen_view.tscn" id="8_suoaq"]
+[ext_resource type="Script" uid="uid://b444n2m7bw7r4" path="res://student_edit.gd" id="9_044w4"]
+[ext_resource type="Script" uid="uid://by4dawqgyx3ee" path="res://add_prof.gd" id="10_pok3e"]
+[ext_resource type="Script" uid="uid://b4r7ttat2a601" path="res://add_librarian.gd" id="13_r3oqi"]
+[ext_resource type="Script" uid="uid://cfh6vnrhvj436" path="res://choose_recipe_menu.gd" id="13_y7e08"]
+[ext_resource type="Script" uid="uid://di5qdjc43ypub" path="res://RecipeButton.gd" id="14_a36s7"]
+[ext_resource type="Script" uid="uid://bg51lmeba1253" path="res://add_alchemist.gd" id="14_suoaq"]
 
 [sub_resource type="Resource" id="Resource_608jr"]
 script = ExtResource("2_sw1rp")
@@ -71,11 +80,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="StarttowerButton2" type="Button" parent="TabContainer/The Tower/Run" unique_id=2064234728]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Run Quiet Phase"
-
 [node name="StarttowerButton" type="Button" parent="TabContainer/The Tower/Run" unique_id=599062562 node_paths=PackedStringArray("input_text")]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -86,6 +90,17 @@ input_text = NodePath("../KnowledgeInput")
 [node name="KnowledgeInput" type="LineEdit" parent="TabContainer/The Tower/Run" unique_id=1280543800]
 layout_mode = 2
 size_flags_horizontal = 4
+
+[node name="LeftoverKnowledge" type="Label" parent="TabContainer/The Tower/Run" unique_id=1067554415]
+layout_mode = 2
+horizontal_alignment = 1
+script = ExtResource("5_y7e08")
+
+[node name="QuietPhase" type="Button" parent="TabContainer/The Tower/Run" unique_id=2064234728]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Run Quiet Phase"
+script = ExtResource("6_a36s7")
 
 [node name="towerview + students" type="VBoxContainer" parent="TabContainer/The Tower" unique_id=1012963396]
 layout_mode = 2
@@ -98,6 +113,10 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 script = ExtResource("4_4xa76")
+denizenViewTemplate = ExtResource("8_suoaq")
+
+[node name="HBoxContainer" parent="TabContainer/The Tower/towerview + students/The Tower" unique_id=1001937311 instance=ExtResource("8_suoaq")]
+layout_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="TabContainer/The Tower/towerview + students" unique_id=1994838767]
 layout_mode = 2
@@ -120,6 +139,88 @@ script = ExtResource("7_iyqsc")
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("8_j7bt1")
+
+[node name="Edit" type="HBoxContainer" parent="TabContainer" unique_id=2077567783]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Edit" unique_id=1771700367]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AcademicsLabel" type="Label" parent="TabContainer/Edit/VBoxContainer" unique_id=224533043]
+layout_mode = 2
+text = "ACADEMICS"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TabContainer/Edit/VBoxContainer" unique_id=136935623]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StudentEdit" type="HBoxContainer" parent="TabContainer/Edit/VBoxContainer/VBoxContainer2" unique_id=742824857 node_paths=PackedStringArray("label", "plusButton", "minusButton")]
+layout_mode = 2
+script = ExtResource("9_044w4")
+label = NodePath("StudentLabel")
+plusButton = NodePath("Button")
+minusButton = NodePath("Button2")
+
+[node name="StudentLabel" type="Label" parent="TabContainer/Edit/VBoxContainer/VBoxContainer2/StudentEdit" unique_id=2090548462]
+layout_mode = 2
+text = "Students"
+
+[node name="Button" type="Button" parent="TabContainer/Edit/VBoxContainer/VBoxContainer2/StudentEdit" unique_id=1579221172]
+layout_mode = 2
+text = "+"
+
+[node name="Button2" type="Button" parent="TabContainer/Edit/VBoxContainer/VBoxContainer2/StudentEdit" unique_id=416737027]
+layout_mode = 2
+text = "-"
+
+[node name="Button" type="Button" parent="TabContainer/Edit/VBoxContainer/VBoxContainer2" unique_id=309037054]
+layout_mode = 2
+text = "Add Professor"
+script = ExtResource("10_pok3e")
+
+[node name="Button2" type="Button" parent="TabContainer/Edit/VBoxContainer/VBoxContainer2" unique_id=223797203]
+layout_mode = 2
+text = "Add Librarian"
+script = ExtResource("13_r3oqi")
+
+[node name="Button4" type="Button" parent="TabContainer/Edit/VBoxContainer/VBoxContainer2" unique_id=1709409660]
+layout_mode = 2
+text = "Add Alchemist"
+script = ExtResource("14_suoaq")
+
+[node name="Button3" type="Button" parent="TabContainer/Edit/VBoxContainer/VBoxContainer2" unique_id=572484561]
+layout_mode = 2
+text = "Add Arcanist"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Edit/VBoxContainer/VBoxContainer2" unique_id=1160574753]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TabContainer/Edit" unique_id=560158314]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="TabContainer/Edit/VBoxContainer2" unique_id=2017581146]
+layout_mode = 2
+text = "RESOURCES"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Edit/VBoxContainer2" unique_id=1742216993]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="TabContainer/Edit" unique_id=1339023031]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="TabContainer/Edit/VBoxContainer3" unique_id=331917265]
+layout_mode = 2
+text = "TOMES"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="TabContainer/Edit/VBoxContainer3" unique_id=1246080476]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="ChooseArcanaMenu" type="PopupMenu" parent="." unique_id=1108145615 node_paths=PackedStringArray("label")]
 oversampling_override = 1.0
@@ -203,3 +304,86 @@ script = ExtResource("4_sw1rp")
 arcana_menu = NodePath("../..")
 arcana = 7
 metadata/_custom_type_script = "uid://c06ttxaa5siek"
+
+[node name="ChooseRecipe" type="PopupMenu" parent="." unique_id=1238791569 node_paths=PackedStringArray("label")]
+oversampling_override = 1.0
+initial_position = 1
+size = Vector2i(272, 355)
+script = ExtResource("13_y7e08")
+label = NodePath("VBoxContainer/ChooseRecipe")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ChooseRecipe" unique_id=534545456]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 19
+size_flags_vertical = 19
+
+[node name="ChooseRecipe" type="Label" parent="ChooseRecipe/VBoxContainer" unique_id=1420748811]
+layout_mode = 2
+text = "Choose Recipe"
+
+[node name="RecipeButton" type="Button" parent="ChooseRecipe/VBoxContainer" unique_id=1240116913 node_paths=PackedStringArray("recipe_menu")]
+layout_mode = 2
+text = "2 Knowledge => Salt"
+script = ExtResource("14_a36s7")
+recipe_menu = NodePath("../..")
+recipe = 0
+
+[node name="RecipeButton2" type="Button" parent="ChooseRecipe/VBoxContainer" unique_id=1160481848 node_paths=PackedStringArray("recipe_menu")]
+layout_mode = 2
+text = "2 Salt => Tin + Lead"
+script = ExtResource("14_a36s7")
+recipe_menu = NodePath("../..")
+recipe = 1
+
+[node name="RecipeButton3" type="Button" parent="ChooseRecipe/VBoxContainer" unique_id=1851908322 node_paths=PackedStringArray("recipe_menu")]
+layout_mode = 2
+text = "2 Tin => Iron"
+script = ExtResource("14_a36s7")
+recipe_menu = NodePath("../..")
+recipe = 2
+
+[node name="RecipeButton4" type="Button" parent="ChooseRecipe/VBoxContainer" unique_id=1981334939 node_paths=PackedStringArray("recipe_menu")]
+layout_mode = 2
+text = "2 Tin => Copper"
+script = ExtResource("14_a36s7")
+recipe_menu = NodePath("../..")
+recipe = 3
+
+[node name="RecipeButton5" type="Button" parent="ChooseRecipe/VBoxContainer" unique_id=919037489 node_paths=PackedStringArray("recipe_menu")]
+layout_mode = 2
+text = "Coper + Iron + Tin => Mercury"
+script = ExtResource("14_a36s7")
+recipe_menu = NodePath("../..")
+recipe = 4
+
+[node name="RecipeButton6" type="Button" parent="ChooseRecipe/VBoxContainer" unique_id=1091781539 node_paths=PackedStringArray("recipe_menu")]
+layout_mode = 2
+text = "Tome + Tin => Silver"
+script = ExtResource("14_a36s7")
+recipe_menu = NodePath("../..")
+recipe = 5
+
+[node name="RecipeButton7" type="Button" parent="ChooseRecipe/VBoxContainer" unique_id=2087942321 node_paths=PackedStringArray("recipe_menu")]
+layout_mode = 2
+text = "Tome + Silver + Copper => Alum"
+script = ExtResource("14_a36s7")
+recipe_menu = NodePath("../..")
+recipe = 6
+
+[node name="RecipeButton8" type="Button" parent="ChooseRecipe/VBoxContainer" unique_id=655336343 node_paths=PackedStringArray("recipe_menu")]
+layout_mode = 2
+text = "Student + Lead + Salt => Sulfur"
+script = ExtResource("14_a36s7")
+recipe_menu = NodePath("../..")
+recipe = 0
+
+[node name="RecipeButton9" type="Button" parent="ChooseRecipe/VBoxContainer" unique_id=2131774929 node_paths=PackedStringArray("recipe_menu")]
+layout_mode = 2
+text = "Every Reagen except Salt => Gold"
+script = ExtResource("14_a36s7")
+recipe_menu = NodePath("../..")
+recipe = 0

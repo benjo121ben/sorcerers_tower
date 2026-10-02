@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://yo7t6mkaesiq"]
+
+[ext_resource type="Script" uid="uid://b33wl428fu7m3" path="res://DenizenView.gd" id="1_3yp1k"]
+
+[node name="HBoxContainer" type="HBoxContainer" unique_id=1001937311 node_paths=PackedStringArray("label", "plusButton", "minusButton", "delButton")]
+alignment = 1
+script = ExtResource("1_3yp1k")
+label = NodePath("Label")
+plusButton = NodePath("Button")
+minusButton = NodePath("Button2")
+delButton = NodePath("Button3")
+
+[node name="Label" type="Label" parent="." unique_id=1047265606]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="." unique_id=1404586739]
+layout_mode = 2
+text = "  +  "
+
+[node name="Button2" type="Button" parent="." unique_id=714860561]
+layout_mode = 2
+text = "  -  "
+
+[node name="Button3" type="Button" parent="." unique_id=1294490967]
+layout_mode = 2
+text = "  x  "

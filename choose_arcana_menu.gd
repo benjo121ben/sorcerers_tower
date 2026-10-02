@@ -12,10 +12,17 @@ signal show_all_options
 func _ready() -> void:
 	assert(wizard_tower != null, "Popup menu wizard tower is null: " + self.name)
 	wizard_tower.choose_tome_to_spend.connect(show_tome_options)
-	wizard_tower.create_arcanist.connect(show_arcanist_options)
+	wizard_tower.choose_arcanist.connect(show_arcanist_options)
+	wizard_tower.choose_arcana.connect(show_arcana_options)
+
+func show_arcana_options():
+	self.visible = true
+	label.text = "Which Arcana is needed"
+	show_all_options.emit()
 
 func show_arcanist_options():
 	self.visible = true
+	label.text = "Which Arcana is needed"
 	show_all_options.emit()
 
 func show_tome_options(tower_resources: TowerResources):
