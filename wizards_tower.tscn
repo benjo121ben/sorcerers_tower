@@ -19,6 +19,8 @@
 [ext_resource type="Script" uid="uid://cfh6vnrhvj436" path="res://choose_recipe_menu.gd" id="13_y7e08"]
 [ext_resource type="Script" uid="uid://di5qdjc43ypub" path="res://RecipeButton.gd" id="14_a36s7"]
 [ext_resource type="Script" uid="uid://bg51lmeba1253" path="res://add_alchemist.gd" id="14_suoaq"]
+[ext_resource type="Script" uid="uid://b3lcadr7boq4n" path="res://edit_reagents.gd" id="16_soh5s"]
+[ext_resource type="Script" uid="uid://d0av5xaexcmtw" path="res://edit_tomes.gd" id="17_o8kae"]
 
 [sub_resource type="Resource" id="Resource_608jr"]
 script = ExtResource("2_sw1rp")
@@ -66,9 +68,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
+current_tab = 1
 
 [node name="The Tower" type="HBoxContainer" parent="TabContainer" unique_id=460949865]
+visible = false
 layout_mode = 2
 size_flags_vertical = 17
 theme_override_constants/separation = 11
@@ -115,9 +118,6 @@ alignment = 1
 script = ExtResource("4_4xa76")
 denizenViewTemplate = ExtResource("8_suoaq")
 
-[node name="HBoxContainer" parent="TabContainer/The Tower/towerview + students/The Tower" unique_id=1001937311 instance=ExtResource("8_suoaq")]
-layout_mode = 2
-
 [node name="CenterContainer" type="CenterContainer" parent="TabContainer/The Tower/towerview + students" unique_id=1994838767]
 layout_mode = 2
 
@@ -141,7 +141,6 @@ size_flags_vertical = 3
 script = ExtResource("8_j7bt1")
 
 [node name="Edit" type="HBoxContainer" parent="TabContainer" unique_id=2077567783]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -209,6 +208,7 @@ text = "RESOURCES"
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Edit/VBoxContainer2" unique_id=1742216993]
 layout_mode = 2
 size_flags_vertical = 3
+script = ExtResource("16_soh5s")
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="TabContainer/Edit" unique_id=1339023031]
 layout_mode = 2
@@ -221,6 +221,7 @@ text = "TOMES"
 [node name="VBoxContainer3" type="VBoxContainer" parent="TabContainer/Edit/VBoxContainer3" unique_id=1246080476]
 layout_mode = 2
 size_flags_vertical = 3
+script = ExtResource("17_o8kae")
 
 [node name="ChooseArcanaMenu" type="PopupMenu" parent="." unique_id=1108145615 node_paths=PackedStringArray("label")]
 oversampling_override = 1.0
