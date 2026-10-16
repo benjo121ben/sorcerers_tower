@@ -8,7 +8,6 @@ func _ready() -> void:
 	var item = get_child(0) as EditItem
 	item.plusButton.pressed.connect(
 		func (): 
-			print("called")
 			wizard_tower.tower_resources.tome_artifice += 1
 			wizard_tower.updated.emit()
 	)

@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://ve2mulvlcyxf" path="res://leftover_knowledge_label.gd" id="5_y7e08"]
 [ext_resource type="Script" uid="uid://dcwvkmscurx0w" path="res://student_label.gd" id="6_4xa76"]
 [ext_resource type="Script" uid="uid://uo176rlxpbsi" path="res://quiet_pase.gd" id="6_a36s7"]
+[ext_resource type="Script" uid="uid://yrhni0t7w65a" path="res://arcanist_view.gd" id="7_eldxv"]
 [ext_resource type="Script" uid="uid://35nrbeuw62t4" path="res://show_tomes.gd" id="7_iyqsc"]
 [ext_resource type="Script" uid="uid://cfaet08v87wrg" path="res://show_reagents.gd" id="8_j7bt1"]
 [ext_resource type="PackedScene" uid="uid://yo7t6mkaesiq" path="res://denizen_view.tscn" id="8_suoaq"]
@@ -21,6 +22,7 @@
 [ext_resource type="Script" uid="uid://bg51lmeba1253" path="res://add_alchemist.gd" id="14_suoaq"]
 [ext_resource type="Script" uid="uid://b3lcadr7boq4n" path="res://edit_reagents.gd" id="16_soh5s"]
 [ext_resource type="Script" uid="uid://d0av5xaexcmtw" path="res://edit_tomes.gd" id="17_o8kae"]
+[ext_resource type="Script" uid="uid://cvbj6rg7oknce" path="res://edit_arcanists.gd" id="19_e47el"]
 
 [sub_resource type="Resource" id="Resource_608jr"]
 script = ExtResource("2_sw1rp")
@@ -110,7 +112,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="The Tower" type="VBoxContainer" parent="TabContainer/The Tower/towerview + students" unique_id=541071583]
+[node name="The Arcanists" type="VBoxContainer" parent="TabContainer/The Tower/towerview + students" unique_id=541071583]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+script = ExtResource("7_eldxv")
+
+[node name="The Tower" type="VBoxContainer" parent="TabContainer/The Tower/towerview + students" unique_id=881900004]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -222,6 +230,19 @@ text = "TOMES"
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("17_o8kae")
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="TabContainer/Edit" unique_id=140749914]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="TabContainer/Edit/VBoxContainer4" unique_id=22924984]
+layout_mode = 2
+text = "Arcanists"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="TabContainer/Edit/VBoxContainer4" unique_id=964399388]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("19_e47el")
 
 [node name="ChooseArcanaMenu" type="PopupMenu" parent="." unique_id=1108145615 node_paths=PackedStringArray("label")]
 oversampling_override = 1.0
