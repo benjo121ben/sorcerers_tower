@@ -11,6 +11,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func update() -> void:
+	if wizard_tower.tower_resources == null:
+		return
 	(get_child(0) as Label).text = "Reagent SALT " + str(wizard_tower.tower_resources.reagent_salt) if wizard_tower.tower_resources.reagent_salt > 0 else ""
 	(get_child(1) as Label).text = "Reagent TIN " + str(wizard_tower.tower_resources.reagent_tin) if wizard_tower.tower_resources.reagent_tin > 0 else ""
 	(get_child(2) as Label).text = "Reagent LEAD " + str(wizard_tower.tower_resources.reagent_lead) if wizard_tower.tower_resources.reagent_lead > 0 else ""

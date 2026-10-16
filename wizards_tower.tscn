@@ -70,10 +70,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 1
+current_tab = 0
 
 [node name="The Tower" type="HBoxContainer" parent="TabContainer" unique_id=460949865]
-visible = false
 layout_mode = 2
 size_flags_vertical = 17
 theme_override_constants/separation = 11
@@ -149,6 +148,7 @@ size_flags_vertical = 3
 script = ExtResource("8_j7bt1")
 
 [node name="Edit" type="HBoxContainer" parent="TabContainer" unique_id=2077567783]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 

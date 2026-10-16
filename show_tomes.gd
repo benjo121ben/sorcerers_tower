@@ -11,6 +11,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func update() -> void:
+	if wizard_tower.tower_resources == null:
+		return
 	(get_child(0) as Label).text = "Tome ARTIFICE " + str(wizard_tower.tower_resources.tome_artifice) if wizard_tower.tower_resources.tome_artifice > 0 else ""
 	(get_child(1) as Label).text = "Tome INVOCATION " + str(wizard_tower.tower_resources.tome_invocation) if wizard_tower.tower_resources.tome_invocation > 0 else ""
 	(get_child(2) as Label).text = "Tome THAUMATURGY " + str(wizard_tower.tower_resources.tome_thaumaturgy) if wizard_tower.tower_resources.tome_thaumaturgy > 0 else ""

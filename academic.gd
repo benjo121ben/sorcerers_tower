@@ -36,3 +36,18 @@ enum ReagentRecipe {
 @export var acad_type: AcademicType = AcademicType.PROFESSOR
 @export var arcana: Arcana = Arcana.NULL
 @export var reagent: ReagentRecipe = ReagentRecipe.NULL
+
+
+func get_as_dict() -> Dictionary:
+    return {
+        "type": acad_type,
+        "arcana": arcana,
+        "reagent": reagent
+    }
+
+static func from_dict(dict: Dictionary) -> Academic:
+    var ret := Academic.new()
+    ret.acad_type = dict["type"]
+    ret.arcana = dict["arcana"]
+    ret.reagent = dict["reagent"]
+    return ret

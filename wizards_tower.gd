@@ -26,7 +26,8 @@ signal updated
 signal leftover_knowledge(knowledge: int)
 
 func _ready() -> void:
-	updated.emit()
+	load_game()
+	updated.connect(save_game)
 
 func create_professor():
 	var acad = Academic.new()
@@ -251,3 +252,80 @@ func handle_alchemist(reagent_recipe: Academic.ReagentRecipe, knowledge: int) ->
 
 
 	return knowledge
+
+func get_as_dict() -> Dictionary:
+	var export_academics = []
+	for academic in academic_list:
+		export_academics.push_back(academic.get_as_dict())
+	return {
+		"students": students,
+		"academics": export_academics,
+		"arcanist": {
+			"artifice": artifice_arcanist,
+			"invocation": invocation_arcanist,
+			"thaumaturgy": thaumaturgy_arcanist,
+			"apotropaism": apotropaism_arcanist,
+			"divination": divination_arcanist,
+			"oneirism": oneirism_arcanist,
+			"metamorphosis": metamorphosis_arcanist,
+			"enchantment": enchantment_arcanist,
+		},
+	}
+
+
+func save_game():
+	var save_file = FileAccess.open("user://savegame.save", FileAccess.WRITE)
+
+	var tower_dict := self.get_as_dict()
+	var resources_dict := tower_resources.get_as_dict()
+
+	# JSON provides a static method to serialized JSON string.
+	var json_string = JSON.stringify({"tower": tower_dict, "resources": resources_dict})
+
+	# Store the save dictionary as a new line in the save file.
+	save_file.store_line(json_string)
+
+
+func load_game():
+	if not FileAccess.file_exists("user://savegame.save"):
+		return # Error! We don't have a save to load.
+
+	var json = JSON.new()
+	# Load the file line by line and process that dictionary to restore
+	# the object it represents.
+	var json_result = json.parse(FileAccess.get_file_as_string("user://savegame.save"))
+
+	if json_result == OK:
+		var json_data: Dictionary = json.data
+		var tower_dict: Dictionary = json_data["tower"]
+		var resources_dict: Dictionary = json_data["resources"]
+
+		students = tower_dict["students"]
+		var arcanists_dict :Dictionary = tower_dict["arcanist"]
+		var academics_list : Array = tower_dict["academics"]
+
+		artifice_arcanist = arcanists_dict["artifice"]
+		invocation_arcanist = arcanists_dict["invocation"]
+		thaumaturgy_arcanist = arcanists_dict["thaumaturgy"]
+		apotropaism_arcanist = arcanists_dict["apotropaism"]
+		divination_arcanist = arcanists_dict["divination"]
+		oneirism_arcanist = arcanists_dict["oneirism"]
+		metamorphosis_arcanist = arcanists_dict["metamorphosis"]
+		enchantment_arcanist = arcanists_dict["enchantment"]
+
+		self.academic_list.clear()
+		for academic in academics_list:
+			self.academic_list.push_back(Academic.from_dict(academic))
+
+		self.tower_resources = TowerResources.from_dict(resources_dict)
+
+		print("done loading")
+		updated.emit()
+
+	else: 
+		print("couldn't load game")
+
+
+
+
+	

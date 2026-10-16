@@ -105,6 +105,8 @@ func _ready() -> void:
 
 
 func update() -> void:
+	if wizard_tower.tower_resources == null:
+		return
 	var item = get_child(0) as EditItem
 	item.label.text = "Tome ARTIFICE " + str(wizard_tower.tower_resources.tome_artifice)
 	
